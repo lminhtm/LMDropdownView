@@ -3,11 +3,11 @@ LMDropdownView
 
 LMDropdownView is a
 
-## Installation
-* Drag the `LMDropdownView` folder into your project.
-
 ## Requirements
 LMDropdownView requires iOS 7.0 or above and ARC.
 
+## Installation
+* Drag the `LMDropdownView` folder into your project.
+
 ## Usage
-You can easily integrate the LMGaugeView with a few lines of code. For an example usage look at the code below.
+You can easily integrate the LMDropdownView with a few lines of code. For an example usage look at the code below.
