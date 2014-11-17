@@ -32,5 +32,6 @@ See sample Xcode project in `/LMDropdownViewDemo`
 LMDropdownView is licensed under the terms of the MIT License.
 
 ## Say Hi
-* [Blog](http://laptrinhiphone.blogspot.com/)
 * [Twitter](https://twitter.com/minhluongnguyen)
+* [LinkedIn](http://www.linkedin.com/in/lminh)
+* [Blog](http://laptrinhiphone.blogspot.com/)
