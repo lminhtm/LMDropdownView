@@ -2,7 +2,7 @@ LMDropdownView
 ==============
 LMDropdownView is a simple dropdown view inspired by Tappy.
 
-![](https://raw.github.com/lminhtm/LMDropdownView/master/Screenshots/screenshot1.png)
+
 ![](https://raw.github.com/lminhtm/LMDropdownView/master/Screenshots/screenshot2.gif)
 
 ## Features
