@@ -1,0 +1,363 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		626CE7D81976240A0086888F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626CE7D71976240A0086888F /* Foundation.framework */; };
+		626CE7DC1976240A0086888F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626CE7DB1976240A0086888F /* UIKit.framework */; };
+		626CE7E21976240A0086888F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 626CE7E01976240A0086888F /* InfoPlist.strings */; };
+		626CE7E41976240A0086888F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 626CE7E31976240A0086888F /* main.m */; };
+		626CE7E81976240A0086888F /* LMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 626CE7E71976240A0086888F /* LMAppDelegate.m */; };
+		626CE7EA1976240A0086888F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 626CE7E91976240A0086888F /* Images.xcassets */; };
+		626CE809197624860086888F /* LMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 626CE807197624860086888F /* LMViewController.m */; };
+		626CE80A197624860086888F /* LMViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 626CE808197624860086888F /* LMViewController.xib */; };
+		626CE80E197625640086888F /* LMDropdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = 626CE80D197625640086888F /* LMDropdownView.m */; };
+		626CE81319766A580086888F /* UIImage+LMImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 626CE81219766A580086888F /* UIImage+LMImage.m */; };
+		628934CD1A18F80E00B8235D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 628934CC1A18F80E00B8235D /* CoreGraphics.framework */; };
+		628934CF1A18F81600B8235D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 628934CE1A18F81600B8235D /* QuartzCore.framework */; };
+		628934D11A18F87E00B8235D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 628934D01A18F87E00B8235D /* Accelerate.framework */; };
+		628934D51A18FC5F00B8235D /* LMDefaultMenuItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 628934D31A18FC5F00B8235D /* LMDefaultMenuItemCell.m */; };
+		628934D61A18FC5F00B8235D /* LMDefaultMenuItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 628934D41A18FC5F00B8235D /* LMDefaultMenuItemCell.xib */; };
+		62A0729419C08B1C001764F8 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62A0729319C08B1C001764F8 /* MapKit.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		626CE7D41976240A0086888F /* LMDropdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LMDropdown.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		626CE7D71976240A0086888F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		626CE7DB1976240A0086888F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		626CE7DF1976240A0086888F /* LMDropdownView-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LMDropdownView-Info.plist"; sourceTree = "<group>"; };
+		626CE7E11976240A0086888F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		626CE7E31976240A0086888F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		626CE7E51976240A0086888F /* LMDropdownView-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LMDropdownView-Prefix.pch"; sourceTree = "<group>"; };
+		626CE7E61976240A0086888F /* LMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LMAppDelegate.h; sourceTree = "<group>"; };
+		626CE7E71976240A0086888F /* LMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMAppDelegate.m; sourceTree = "<group>"; };
+		626CE7E91976240A0086888F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		626CE806197624860086888F /* LMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMViewController.h; sourceTree = "<group>"; };
+		626CE807197624860086888F /* LMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMViewController.m; sourceTree = "<group>"; };
+		626CE808197624860086888F /* LMViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LMViewController.xib; sourceTree = "<group>"; };
+		626CE80C197625640086888F /* LMDropdownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMDropdownView.h; sourceTree = "<group>"; };
+		626CE80D197625640086888F /* LMDropdownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMDropdownView.m; sourceTree = "<group>"; };
+		626CE81119766A580086888F /* UIImage+LMImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+LMImage.h"; sourceTree = "<group>"; };
+		626CE81219766A580086888F /* UIImage+LMImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+LMImage.m"; sourceTree = "<group>"; };
+		628934CC1A18F80E00B8235D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		628934CE1A18F81600B8235D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		628934D01A18F87E00B8235D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		628934D21A18FC5F00B8235D /* LMDefaultMenuItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMDefaultMenuItemCell.h; sourceTree = "<group>"; };
+		628934D31A18FC5F00B8235D /* LMDefaultMenuItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMDefaultMenuItemCell.m; sourceTree = "<group>"; };
+		628934D41A18FC5F00B8235D /* LMDefaultMenuItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LMDefaultMenuItemCell.xib; sourceTree = "<group>"; };
+		62A0729319C08B1C001764F8 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		626CE7D11976240A0086888F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				628934D11A18F87E00B8235D /* Accelerate.framework in Frameworks */,
+				628934CF1A18F81600B8235D /* QuartzCore.framework in Frameworks */,
+				628934CD1A18F80E00B8235D /* CoreGraphics.framework in Frameworks */,
+				62A0729419C08B1C001764F8 /* MapKit.framework in Frameworks */,
+				626CE7DC1976240A0086888F /* UIKit.framework in Frameworks */,
+				626CE7D81976240A0086888F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		626CE7CB1976240A0086888F = {
+			isa = PBXGroup;
+			children = (
+				626CE7DD1976240A0086888F /* LMDropdownView */,
+				626CE7D61976240A0086888F /* Frameworks */,
+				626CE7D51976240A0086888F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		626CE7D51976240A0086888F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				626CE7D41976240A0086888F /* LMDropdown.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		626CE7D61976240A0086888F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				628934D01A18F87E00B8235D /* Accelerate.framework */,
+				628934CE1A18F81600B8235D /* QuartzCore.framework */,
+				628934CC1A18F80E00B8235D /* CoreGraphics.framework */,
+				62A0729319C08B1C001764F8 /* MapKit.framework */,
+				626CE7D71976240A0086888F /* Foundation.framework */,
+				626CE7DB1976240A0086888F /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		626CE7DD1976240A0086888F /* LMDropdownView */ = {
+			isa = PBXGroup;
+			children = (
+				626CE7E61976240A0086888F /* LMAppDelegate.h */,
+				626CE7E71976240A0086888F /* LMAppDelegate.m */,
+				626CE806197624860086888F /* LMViewController.h */,
+				626CE807197624860086888F /* LMViewController.m */,
+				626CE808197624860086888F /* LMViewController.xib */,
+				628934D21A18FC5F00B8235D /* LMDefaultMenuItemCell.h */,
+				628934D31A18FC5F00B8235D /* LMDefaultMenuItemCell.m */,
+				628934D41A18FC5F00B8235D /* LMDefaultMenuItemCell.xib */,
+				626CE80B197625410086888F /* LMDropdownView */,
+				626CE7DE1976240A0086888F /* Supporting Files */,
+			);
+			path = LMDropdownView;
+			sourceTree = "<group>";
+		};
+		626CE7DE1976240A0086888F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				626CE7E91976240A0086888F /* Images.xcassets */,
+				626CE7DF1976240A0086888F /* LMDropdownView-Info.plist */,
+				626CE7E01976240A0086888F /* InfoPlist.strings */,
+				626CE7E31976240A0086888F /* main.m */,
+				626CE7E51976240A0086888F /* LMDropdownView-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		626CE80B197625410086888F /* LMDropdownView */ = {
+			isa = PBXGroup;
+			children = (
+				626CE80C197625640086888F /* LMDropdownView.h */,
+				626CE80D197625640086888F /* LMDropdownView.m */,
+				626CE80F19766A580086888F /* Vender */,
+			);
+			path = LMDropdownView;
+			sourceTree = "<group>";
+		};
+		626CE80F19766A580086888F /* Vender */ = {
+			isa = PBXGroup;
+			children = (
+				626CE81119766A580086888F /* UIImage+LMImage.h */,
+				626CE81219766A580086888F /* UIImage+LMImage.m */,
+			);
+			path = Vender;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		626CE7D31976240A0086888F /* LMDropdownView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 626CE8001976240A0086888F /* Build configuration list for PBXNativeTarget "LMDropdownView" */;
+			buildPhases = (
+				626CE7D01976240A0086888F /* Sources */,
+				626CE7D11976240A0086888F /* Frameworks */,
+				626CE7D21976240A0086888F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LMDropdownView;
+			productName = LMDropdownMenu;
+			productReference = 626CE7D41976240A0086888F /* LMDropdown.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		626CE7CC1976240A0086888F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = LM;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = LMinh;
+			};
+			buildConfigurationList = 626CE7CF1976240A0086888F /* Build configuration list for PBXProject "LMDropdownView" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 626CE7CB1976240A0086888F;
+			productRefGroup = 626CE7D51976240A0086888F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				626CE7D31976240A0086888F /* LMDropdownView */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		626CE7D21976240A0086888F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				628934D61A18FC5F00B8235D /* LMDefaultMenuItemCell.xib in Resources */,
+				626CE7E21976240A0086888F /* InfoPlist.strings in Resources */,
+				626CE7EA1976240A0086888F /* Images.xcassets in Resources */,
+				626CE80A197624860086888F /* LMViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		626CE7D01976240A0086888F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				626CE7E41976240A0086888F /* main.m in Sources */,
+				626CE7E81976240A0086888F /* LMAppDelegate.m in Sources */,
+				628934D51A18FC5F00B8235D /* LMDefaultMenuItemCell.m in Sources */,
+				626CE81319766A580086888F /* UIImage+LMImage.m in Sources */,
+				626CE80E197625640086888F /* LMDropdownView.m in Sources */,
+				626CE809197624860086888F /* LMViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		626CE7E01976240A0086888F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				626CE7E11976240A0086888F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		626CE7FE1976240A0086888F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		626CE7FF1976240A0086888F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		626CE8011976240A0086888F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LMDropdownView/LMDropdownView-Prefix.pch";
+				INFOPLIST_FILE = "LMDropdownView/LMDropdownView-Info.plist";
+				PRODUCT_NAME = LMDropdown;
+				PROVISIONING_PROFILE = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		626CE8021976240A0086888F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LMDropdownView/LMDropdownView-Prefix.pch";
+				INFOPLIST_FILE = "LMDropdownView/LMDropdownView-Info.plist";
+				PRODUCT_NAME = LMDropdown;
+				PROVISIONING_PROFILE = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		626CE7CF1976240A0086888F /* Build configuration list for PBXProject "LMDropdownView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				626CE7FE1976240A0086888F /* Debug */,
+				626CE7FF1976240A0086888F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		626CE8001976240A0086888F /* Build configuration list for PBXNativeTarget "LMDropdownView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				626CE8011976240A0086888F /* Debug */,
+				626CE8021976240A0086888F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 626CE7CC1976240A0086888F /* Project object */;
+}

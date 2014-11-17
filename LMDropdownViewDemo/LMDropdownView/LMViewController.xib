@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LMViewController">
+            <connections>
+                <outlet property="mapTypeButton" destination="K3Q-yZ-g29" id="1Yu-ZG-Klp"/>
+                <outlet property="mapView" destination="X4F-bM-6DX" id="1Wu-tK-RKX"/>
+                <outlet property="menuTableView" destination="yWg-tA-Csg" id="ozb-4o-eE3"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="X4F-bM-6DX">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                </mapView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="X4F-bM-6DX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="fce-Bo-eOQ"/>
+                <constraint firstAttribute="trailing" secondItem="X4F-bM-6DX" secondAttribute="trailing" id="j2l-sW-zbC"/>
+                <constraint firstItem="X4F-bM-6DX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="piZ-UR-DhX"/>
+                <constraint firstAttribute="bottom" secondItem="X4F-bM-6DX" secondAttribute="bottom" id="wJx-mY-9yM"/>
+            </constraints>
+        </view>
+        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="K3Q-yZ-g29" userLabel="Button - Map type">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+            <inset key="imageEdgeInsets" minX="152" minY="30" maxX="140" maxY="0.0"/>
+            <state key="normal" title="Maps" image="ico_white_arrow">
+                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </state>
+            <connections>
+                <action selector="mapTypeButtonTapped:" destination="-1" eventType="touchUpInside" id="1Qw-8c-FMH"/>
+            </connections>
+        </button>
+        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" id="yWg-tA-Csg">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="dataSource" destination="-1" id="YUW-X7-51e"/>
+                <outlet property="delegate" destination="-1" id="YUe-Ft-IwR"/>
+            </connections>
+            <point key="canvasLocation" x="1025" y="319"/>
+        </tableView>
+    </objects>
+    <resources>
+        <image name="ico_white_arrow" width="7" height="4"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
