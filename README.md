@@ -13,10 +13,10 @@ LMDropdownView is a simple dropdown view inspired by Tappy.
 
 ## Installation
 * Drag the `LMDropdownView` folder into your project.
-* Add #include "LMDropdownView.h" to the top of classes that will use it.
+* Add `#include "LMDropdownView.h"` to the top of classes that will use it.
 
 ## Usage
-You can easily integrate the LMDropdownView with a few lines of code. For an example usage look at the code below.
+You can easily integrate the `LMDropdownView` with a few lines of code. For an example usage look at the code below.
 ```ObjC
 LMDropdownView *dropdownView = [[LMDropdownView alloc] init];
 dropdownView.menuContentView = self.menuTableView;
