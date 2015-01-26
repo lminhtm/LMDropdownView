@@ -61,7 +61,10 @@
 
 - (IBAction)mapTypeButtonTapped:(id)sender
 {
-    [self.menuTableView setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.mapTypes.count * 50)];
+    [self.menuTableView setFrame:CGRectMake(self.menuTableView.frame.origin.x,
+                                            self.menuTableView.frame.origin.y,
+                                            self.view.bounds.size.width,
+                                            MIN(self.view.bounds.size.height / 2, self.mapTypes.count * 50))];
     [self.menuTableView reloadData];
     
     // Init dropdown view
@@ -93,13 +96,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.mapTypes.count;
+    return [self.mapTypes count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *xibs = [[NSBundle mainBundle] loadNibNamed:@"LMDefaultMenuItemCell" owner:self options:nil];
-    LMDefaultMenuItemCell *cell = [xibs firstObject];
+    LMDefaultMenuItemCell *cell = [tableView dequeueReusableCellWithIdentifier:@"defaultMenuItemCell"];
+    if (!cell) {
+        NSArray *xibs = [[NSBundle mainBundle] loadNibNamed:@"LMDefaultMenuItemCell" owner:self options:nil];
+        cell = [xibs firstObject];
+    }
     
     // Set data for cell
     NSString *mapType = mapType = [self.mapTypes objectAtIndex:indexPath.row];

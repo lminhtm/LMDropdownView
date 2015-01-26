@@ -135,7 +135,8 @@
 				626CE80D197625640086888F /* LMDropdownView.m */,
 				626CE80F19766A580086888F /* Vender */,
 			);
-			path = LMDropdownView;
+			name = LMDropdownView;
+			path = ../../LMDropdownView;
 			sourceTree = "<group>";
 		};
 		626CE80F19766A580086888F /* Vender */ = {
