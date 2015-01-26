@@ -16,6 +16,11 @@ LMDropdownView is a simple dropdown view inspired by Tappy.
 * ARC
 
 ## Installation
+#### From CocoaPods
+```ruby
+pod 'LMDropdownView'
+```
+#### Manually
 * Drag the `LMDropdownView` folder into your project.
 * Add `#include "LMDropdownView.h"` to the top of classes that will use it.
 
