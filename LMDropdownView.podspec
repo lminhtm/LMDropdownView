@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name             = "LMDropdownView"
-  s.version          = “1.0.0”
+  s.version          = "1.0.0"
   s.summary          = "LMDropdownView is a simple dropdown view inspired by Tappy"
   s.homepage         = "https://github.com/lminhtm/LMDropdownView"
   s.license          = 'MIT'
