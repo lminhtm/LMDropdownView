@@ -27,16 +27,15 @@ pod 'LMDropdownView'
 ## Usage
 You can easily integrate the LMDropdownView with a few lines of code. For an example usage look at the code below.
 ```ObjC
-LMDropdownView *dropdownView = [[LMDropdownView alloc] init];
-dropdownView.menuContentView = self.menuTableView;
-[dropdownView showInView:self.view withFrame:self.view.bounds];
+LMDropdownView *dropdownView = [LMDropdownView dropdownView];
+[dropdownView showFromNavigationController:self.navigationController withContentView:self.menuTableView];
 ```
 See sample Xcode project in `/LMDropdownViewDemo`
 
 ## License
 LMDropdownView is licensed under the terms of the MIT License.
 
-## Say Hi
-* [Twitter](https://twitter.com/minhluongnguyen)
-* [LinkedIn](http://www.linkedin.com/in/lminh)
-* [Blog](http://laptrinhiphone.blogspot.com/)
+## Contact
+Minh Luong Nguyen
+* https://github.com/lminhtm
+* lminhtm@gmail.com
