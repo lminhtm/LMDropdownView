@@ -129,11 +129,6 @@
     // Finish hiding
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.animationDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [self.contentWrapperView removeFromSuperview];
-        [self.backgroundButton removeFromSuperview];
-        [self.containerWrapperView removeFromSuperview];
-        [self.mainView removeFromSuperview];
-        
         _currentState = LMDropdownViewStateDidClose;
         if (self.delegate && [self.delegate respondsToSelector:@selector(dropdownViewDidHide:)]) {
             [self.delegate dropdownViewDidHide:self];
@@ -141,6 +136,16 @@
         if (self.didHideHandler) {
             self.didHideHandler();
         }
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            self.mainView.alpha = 0;
+        } completion:^(BOOL finished) {
+            self.mainView.alpha = 1;
+            [self.contentWrapperView removeFromSuperview];
+            [self.backgroundButton removeFromSuperview];
+            [self.containerWrapperView removeFromSuperview];
+            [self.mainView removeFromSuperview];
+        }];
     });
 }
 

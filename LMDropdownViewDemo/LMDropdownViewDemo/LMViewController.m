@@ -37,7 +37,6 @@
                                             0,
                                             CGRectGetWidth(self.view.bounds),
                                             MIN(CGRectGetHeight(self.view.bounds)/2, self.mapTypes.count * 50))];
-    [self.menuTableView reloadData];
 }
 
 
@@ -142,6 +141,8 @@
 
 - (IBAction)titleButtonTapped:(id)sender
 {
+    [self.menuTableView reloadData];
+    
     [self showDropDownView];
 }
 
