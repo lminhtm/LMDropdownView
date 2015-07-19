@@ -1,6 +1,5 @@
 //
-//  UIImage+LMImage.h
-//  LMFramework
+//  UIImage+LMExtension.h
 //
 //  Created by LMinh on 28/12/2013.
 //  Copyright (c) 2013 LMinh. All rights reserved.
@@ -10,7 +9,7 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import <Accelerate/Accelerate.h>
 
-@interface UIImage (LMImage)
+@interface UIImage (LMExtension)
 
 // Create Image
 + (UIImage *)imageFromView:(UIView *)theView withSize:(CGSize)size;

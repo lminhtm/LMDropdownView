@@ -1,36 +1,19 @@
 //
 //  LMAppDelegate.m
-//  LMDropdownView
+//  LMDropdownViewDemo
 //
 //  Created by LMinh on 16/07/2014.
-//  Copyright (c) Năm 2014 LMinh. All rights reserved.
+//  Copyright (c) 2014 LMinh. All rights reserved.
 //
 
 #import "LMAppDelegate.h"
-#import "LMViewController.h"
 
 @implementation LMAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
-    LMViewController *viewController = [[LMViewController alloc] initWithNibName:@"LMViewController" bundle:nil];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-    [navigationController.navigationBar setTranslucent:NO];
-    [navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:11.0/255 green:150.0/255 blue:246.0/255 alpha:1]];
-    [navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, navigationController.navigationBar.bounds.size.height - 2, navigationController.navigationBar.bounds.size.width, 2)];
-    lineView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    lineView.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.2];
-    [navigationController.navigationBar addSubview:lineView];
-    [navigationController.navigationBar bringSubviewToFront:lineView];
-    
-    self.window.rootViewController = navigationController;
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
     return YES;
 }
 

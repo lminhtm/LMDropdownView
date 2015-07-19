@@ -3,26 +3,27 @@
 //  LMDropdownView
 //
 //  Created by LMinh on 16/11/2014.
-//  Copyright (c) Năm 2014 LMinh. All rights reserved.
+//  Copyright (c) 2014 LMinh. All rights reserved.
 //
 
 #import "LMDropdownView.h"
-#import "UIImage+LMImage.h"
+#import "UIImage+LMExtension.h"
 
-#define kDefaultBounceHeight                30
-#define kDefaultAnimationDuration           0.5
-#define kDefaultDepthStyleClosedScale       0.85
+#define kDefaultClosedScale                 0.85
 #define kDefaultBlurRadius                  5
 #define kDefaultBlackMaskAlpha              0.5
+#define kDefaultAnimationDuration           0.5
+#define kDefaultAnimationBounceHeight       20
+#define kDefaultAnimationBounceScale        0.05
 
 @interface LMDropdownView ()
 {
-    CGPoint originMenuCenter;
-    CGPoint desMenuCenter;
+    CGPoint originContentCenter;
+    CGPoint desContentCenter;
 }
 @property (nonatomic, strong) UIView *mainView;
-@property (nonatomic, strong) UIView *menuView;
-@property (nonatomic, strong) UIImageView *contentView;
+@property (nonatomic, strong) UIView *contentWrapperView;
+@property (nonatomic, strong) UIImageView *containerWrapperView;
 @property (nonatomic, strong) UIButton *backgroundButton;
 
 @end
@@ -31,15 +32,20 @@
 
 #pragma mark - INIT
 
++ (instancetype)dropdownView
+{
+    return [[LMDropdownView alloc] init];
+}
+
 - (id)init
 {
     self = [super init];
     if (self) {
-        _animationDuration = kDefaultAnimationDuration;
-        _closedScale = kDefaultDepthStyleClosedScale;
+        _closedScale = kDefaultClosedScale;
         _blurRadius = kDefaultBlurRadius;
         _blackMaskAlpha = kDefaultBlackMaskAlpha;
-        
+        _animationDuration = kDefaultAnimationDuration;
+        _animationBounceHeight = kDefaultAnimationBounceHeight;
         _currentState = LMDropdownViewStateDidClose;
     }
     return self;
@@ -53,183 +59,237 @@
     return (_currentState == LMDropdownViewStateDidOpen);
 }
 
-- (void)showInView:(UIView *)view withFrame:(CGRect)frame
+- (void)showInView:(UIView *)containerView withContentView:(UIView *)contentView atOrigin:(CGPoint)origin
 {
-    if (_currentState == LMDropdownViewStateDidClose)
-    {
-        _currentState = LMDropdownViewStateWillOpen;
-        
-        // Setup menu in view
-        [self setupMenuInView:view withFrame:frame];
-        
-        // Animate menu view controller
-        [self addMenuAnimationForMenuState:_currentState];
-        
-        // Animate content view controller
-        [self addContentAnimationForMenuState:_currentState];
-        
-        // Finish showing
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.animationDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            _currentState = LMDropdownViewStateDidOpen;
-        });
+    if (_currentState != LMDropdownViewStateDidClose) {
+        return;
     }
+    
+    // Start showing
+    _currentState = LMDropdownViewStateWillOpen;
+    if (self.delegate && [self.delegate respondsToSelector:@selector(dropdownViewWillShow:)]) {
+        [self.delegate dropdownViewWillShow:self];
+    }
+    
+    // Setup menu in view
+    [self setupContentView:contentView inView:containerView atOrigin:origin];
+    
+    // Animate menu view controller
+    [self addContentAnimationForState:_currentState];
+    
+    // Animate content view controller
+    if (self.closedScale < 1) {
+        [self addContainerAnimationForState:_currentState];
+    }
+    
+    // Finish showing
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.animationDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        _currentState = LMDropdownViewStateDidOpen;
+        if (self.delegate && [self.delegate respondsToSelector:@selector(dropdownViewDidShow:)]) {
+            [self.delegate dropdownViewDidShow:self];
+        }
+        if (self.didShowHandler) {
+            self.didShowHandler();
+        }
+    });
+}
+
+- (void)showInView:(UIView *)containerView withContentView:(UIView *)contentView atView:(UIView *)atView
+{
+    CGPoint origin = CGPointMake(CGRectGetMinX(atView.frame), CGRectGetMaxY(atView.frame));
+    [self showInView:containerView withContentView:contentView atOrigin:origin];
+}
+
+- (void)showFromNavigationController:(UINavigationController *)navigationController withContentView:(UIView *)contentView
+{
+    [self showInView:navigationController.visibleViewController.view withContentView:contentView atOrigin:CGPointZero];
 }
 
 - (void)hide
 {
-    if (_currentState == LMDropdownViewStateDidOpen)
-    {
-        _currentState = LMDropdownViewStateWillClose;
-        
-        // Animate menu view controller
-        [self addMenuAnimationForMenuState:_currentState];
-        
-        // Animate content view controller
-        [self addContentAnimationForMenuState:_currentState];
-        
-        // Finish hiding
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.animationDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.menuView removeFromSuperview];
-            [self.backgroundButton removeFromSuperview];
-            [self.contentView removeFromSuperview];
-            [self.mainView removeFromSuperview];
-            
-            _currentState = LMDropdownViewStateDidClose;
-        });
+    if (_currentState != LMDropdownViewStateDidOpen) {
+        return;
     }
-}
-
-
-#pragma mark - PRIVATE
-
-- (void)setupMenuInView:(UIView *)view withFrame:(CGRect)frame
-{
-    // Prepare content image
-    CGSize contentSize = [view bounds].size;
-    CGSize capturedSize = CGSizeMake(contentSize.width * (3 - 2 * self.closedScale), contentSize.height * (3 - 2 * self.closedScale));
-    UIImage *capturedImage = [UIImage imageFromView:view withSize:capturedSize];
-    UIImage *blurredCapturedImage = [capturedImage blurredImageWithRadius:self.blurRadius iterations:5 tintColor:[UIColor clearColor]];
     
-    
-    // Main View
-    if (!self.mainView) {
-        self.mainView = [[UIScrollView alloc] init];
-        self.mainView.backgroundColor = [UIColor clearColor];
+    // Start hiding
+    _currentState = LMDropdownViewStateWillClose;
+    if (self.delegate && [self.delegate respondsToSelector:@selector(dropdownViewWillHide:)]) {
+        [self.delegate dropdownViewWillHide:self];
     }
-    [self.mainView setFrame:frame];
-    [view addSubview:self.mainView];
     
+    // Animate menu view controller
+    [self addContentAnimationForState:_currentState];
     
-    // Content Image View
-    if (!self.contentView) {
-        self.contentView = [[UIImageView alloc] init];
-        self.contentView.backgroundColor = [UIColor blackColor];
-        self.contentView.contentMode = UIViewContentModeCenter;
+    // Animate content view controller
+    if (self.closedScale < 1) {
+        [self addContainerAnimationForState:_currentState];
     }
-    self.contentView.image = blurredCapturedImage;
-    [self.contentView setFrame:CGRectMake(-contentSize.width * (1 - self.closedScale),
-                                          -self.mainView.frame.origin.y - contentSize.height * (1 - self.closedScale),
-                                          contentSize.width * (3 - 2 * self.closedScale),
-                                          contentSize.height * (3 - 2 * self.closedScale))];
-    [self.mainView addSubview:self.contentView];
     
-    
-    // Background Button
-    if (!self.backgroundButton) {
-        self.backgroundButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.backgroundButton.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:self.blackMaskAlpha];
-        [self.backgroundButton addTarget:self action:@selector(backgroundButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    [self.backgroundButton setFrame:CGRectMake(0, 0, self.mainView.frame.size.width, self.mainView.frame.size.height)];
-    [self.mainView addSubview:self.backgroundButton];
-    
-    
-    // Menu Table View
-    if (!self.menuView) {
-        self.menuView = [[UIView alloc] init];
-    }
-    self.menuView.backgroundColor = self.menuBackgroundColor;
-    [self.menuContentView setFrame:CGRectMake(0, kDefaultBounceHeight, self.menuContentView.bounds.size.width, self.menuContentView.bounds.size.height)];
-    [self.menuView addSubview:self.menuContentView];
-    
-    CGFloat menuTableViewHeight = MIN(self.menuContentView.bounds.size.height + kDefaultBounceHeight, self.mainView.bounds.size.height);
-    [self.menuView setFrame:CGRectMake(0, -menuTableViewHeight, self.mainView.bounds.size.width, menuTableViewHeight)];
-    [self.mainView addSubview:self.menuView];
-    
-    originMenuCenter = CGPointMake(self.menuView.bounds.size.width/2, -self.menuView.bounds.size.height/2);
-    desMenuCenter = CGPointMake(self.menuView.bounds.size.width/2, self.menuView.bounds.size.height/2 - kDefaultBounceHeight);
-}
-
-- (void)backgroundButtonTapped:(id)sender
-{
-    [self hide];
-    
+    // Finish hiding
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.animationDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (self.delegate && [self.delegate respondsToSelector:@selector(dropdownViewDidTapBackgroundButton:)]) {
-            [self.delegate dropdownViewDidTapBackgroundButton:self];
+        
+        [self.contentWrapperView removeFromSuperview];
+        [self.backgroundButton removeFromSuperview];
+        [self.containerWrapperView removeFromSuperview];
+        [self.mainView removeFromSuperview];
+        
+        _currentState = LMDropdownViewStateDidClose;
+        if (self.delegate && [self.delegate respondsToSelector:@selector(dropdownViewDidHide:)]) {
+            [self.delegate dropdownViewDidHide:self];
+        }
+        if (self.didHideHandler) {
+            self.didHideHandler();
         }
     });
 }
 
 
-#pragma mark - KEYFRAME ANIMATION
+#pragma mark - PRIVATE
 
-- (void)addMenuAnimationForMenuState:(LMDropdownViewState)state
+- (void)setupContentView:(UIView *)contentView inView:(UIView *)containerView atOrigin:(CGPoint)origin
 {
-    CAKeyframeAnimation *menuBounceAnim = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-    menuBounceAnim.duration = self.animationDuration;
-    menuBounceAnim.delegate = self;
-    menuBounceAnim.removedOnCompletion = NO;
-    menuBounceAnim.fillMode = kCAFillModeForwards;
-    menuBounceAnim.values = [self menuPositionValuesForMenuState:state];
-    menuBounceAnim.timingFunctions = [self menuTimingFunctionsForMenuState:state];
-    menuBounceAnim.keyTimes = [self menuKeyTimesForMenuState:state];
+    /*!
+     *  Prepare container captured image
+     */
+    CGSize containerSize = [containerView bounds].size;
+    CGFloat scale = (3 - 2 * self.closedScale);
+    CGSize capturedSize = CGSizeMake(containerSize.width * scale, containerSize.height * scale);
+    UIImage *capturedImage = [UIImage imageFromView:containerView withSize:capturedSize];
+    UIImage *blurredCapturedImage = [capturedImage blurredImageWithRadius:self.blurRadius iterations:5 tintColor:[UIColor clearColor]];
     
-    [self.menuView.layer addAnimation:menuBounceAnim forKey:nil];
-    [self.menuView.layer setValue:[menuBounceAnim.values lastObject] forKeyPath:@"position"];
+    /*!
+     *  Main View
+     */
+    if (!self.mainView) {
+        self.mainView = [[UIScrollView alloc] init];
+        self.mainView.backgroundColor = [UIColor blackColor];
+    }
+    self.mainView.frame = containerView.bounds;
+    [containerView addSubview:self.mainView];
+    
+    /*!
+     *  Container Wrapper View
+     */
+    if (!self.containerWrapperView) {
+        self.containerWrapperView = [[UIImageView alloc] init];
+        self.containerWrapperView.backgroundColor = [UIColor blackColor];
+        self.containerWrapperView.contentMode = UIViewContentModeCenter;
+    }
+    self.containerWrapperView.image = blurredCapturedImage;
+    self.containerWrapperView.bounds = CGRectMake(0,
+                                                  0,
+                                                  capturedSize.width,
+                                                  capturedSize.height);
+    self.containerWrapperView.center = self.mainView.center;
+    [self.mainView addSubview:self.containerWrapperView];
+    
+    /*!
+     *  Background Button
+     */
+    if (!self.backgroundButton) {
+        self.backgroundButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.backgroundButton addTarget:self action:@selector(backgroundButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    UIColor *maskColor = [[UIColor blackColor] colorWithAlphaComponent:self.blackMaskAlpha];
+    self.backgroundButton.backgroundColor = maskColor;
+    self.backgroundButton.frame = self.mainView.bounds;
+    [self.mainView addSubview:self.backgroundButton];
+    
+    /*!
+     *  Content Wrapper View
+     */
+    if (!self.contentWrapperView) {
+        self.contentWrapperView = [[UIView alloc] init];
+    }
+    self.contentWrapperView.backgroundColor = self.contentBackgroundColor;
+    
+    contentView.frame = CGRectMake(0,
+                                   self.animationBounceHeight,
+                                   CGRectGetWidth(contentView.frame),
+                                   CGRectGetHeight(contentView.frame));
+    [self.contentWrapperView addSubview:contentView];
+    
+    CGFloat contentWrapperViewHeight = CGRectGetHeight(contentView.frame) + self.animationBounceHeight;
+    self.contentWrapperView.frame = CGRectMake(origin.x,
+                                               origin.y - contentWrapperViewHeight,
+                                               CGRectGetWidth(contentView.frame),
+                                               contentWrapperViewHeight);
+    [self.mainView addSubview:self.contentWrapperView];
+    
+    originContentCenter = CGPointMake(CGRectGetMidX(self.contentWrapperView.frame), CGRectGetMidY(self.contentWrapperView.frame));
+    desContentCenter = CGPointMake(CGRectGetMidX(self.contentWrapperView.frame), origin.y + contentWrapperViewHeight/2 - self.animationBounceHeight);
 }
 
-- (void)addContentAnimationForMenuState:(LMDropdownViewState)state
+- (void)backgroundButtonTapped:(id)sender
 {
-    CAKeyframeAnimation *scaleBounceAnim = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-    scaleBounceAnim.duration = self.animationDuration;
-    scaleBounceAnim.delegate = self;
-    scaleBounceAnim.removedOnCompletion = NO;
-    scaleBounceAnim.fillMode = kCAFillModeForwards;
-    scaleBounceAnim.values = [self contentTransformValuesForMenuState:state];
-    scaleBounceAnim.timingFunctions = [self contentTimingFunctionsForMenuState:state];
-    scaleBounceAnim.keyTimes = [self contentKeyTimesForMenuState:state];
+    [self hide];
+}
+
+- (void)setClosedScale:(CGFloat)closedScale
+{
+    _closedScale = MIN(closedScale, 1);
+}
+
+
+#pragma mark - KEYFRAME ANIMATION
+
+- (void)addContentAnimationForState:(LMDropdownViewState)state
+{
+    CAKeyframeAnimation *contentBounceAnim = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    contentBounceAnim.duration = self.animationDuration;
+    contentBounceAnim.delegate = self;
+    contentBounceAnim.removedOnCompletion = NO;
+    contentBounceAnim.fillMode = kCAFillModeForwards;
+    contentBounceAnim.values = [self contentPositionValuesForState:state];
+    contentBounceAnim.timingFunctions = [self contentTimingFunctionsForState:state];
+    contentBounceAnim.keyTimes = [self contentKeyTimesForState:state];
     
-    [self.contentView.layer addAnimation:scaleBounceAnim forKey:nil];
-    [self.contentView.layer setValue:[scaleBounceAnim.values lastObject] forKeyPath:@"transform"];
+    [self.contentWrapperView.layer addAnimation:contentBounceAnim forKey:nil];
+    [self.contentWrapperView.layer setValue:[contentBounceAnim.values lastObject] forKeyPath:@"position"];
+}
+
+- (void)addContainerAnimationForState:(LMDropdownViewState)state
+{
+    CAKeyframeAnimation *containerScaleAnim = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+    containerScaleAnim.duration = self.animationDuration;
+    containerScaleAnim.delegate = self;
+    containerScaleAnim.removedOnCompletion = NO;
+    containerScaleAnim.fillMode = kCAFillModeForwards;
+    containerScaleAnim.values = [self containerTransformValuesForState:state];
+    containerScaleAnim.timingFunctions = [self containerTimingFunctionsForState:state];
+    containerScaleAnim.keyTimes = [self containerKeyTimesForState:state];
+    
+    [self.containerWrapperView.layer addAnimation:containerScaleAnim forKey:nil];
+    [self.containerWrapperView.layer setValue:[containerScaleAnim.values lastObject] forKeyPath:@"transform"];
 }
 
 
 #pragma mark - PROPERTIES FOR KEYFRAME ANIMATION
 
-- (NSArray *)menuPositionValuesForMenuState:(LMDropdownViewState)state
+- (NSArray *)contentPositionValuesForState:(LMDropdownViewState)state
 {
-    CGFloat menuPositionX = self.menuView.layer.position.x;
-    CGFloat menuPositionY = self.menuView.layer.position.y;
+    CGFloat positionX = self.contentWrapperView.layer.position.x;
+    CGFloat positionY = self.contentWrapperView.layer.position.y;
     
     NSMutableArray *values = [[NSMutableArray alloc] init];
-    [values addObject:[NSValue valueWithCGPoint:self.menuView.layer.position]];
+    [values addObject:[NSValue valueWithCGPoint:self.contentWrapperView.layer.position]];
     
     if (state == LMDropdownViewStateWillOpen || state == LMDropdownViewStateDidOpen)
     {
-        [values addObject:[NSValue valueWithCGPoint:CGPointMake(menuPositionX, desMenuCenter.y + 20)]];
-        [values addObject:[NSValue valueWithCGPoint:CGPointMake(menuPositionX, desMenuCenter.y)]];
+        [values addObject:[NSValue valueWithCGPoint:CGPointMake(positionX, desContentCenter.y + self.animationBounceHeight)]];
+        [values addObject:[NSValue valueWithCGPoint:CGPointMake(positionX, desContentCenter.y)]];
     }
     else
     {
-        [values addObject:[NSValue valueWithCGPoint:CGPointMake(menuPositionX, menuPositionY + 20)]];
-        [values addObject:[NSValue valueWithCGPoint:CGPointMake(menuPositionX, originMenuCenter.y)]];
+        [values addObject:[NSValue valueWithCGPoint:CGPointMake(positionX, positionY + self.animationBounceHeight)]];
+        [values addObject:[NSValue valueWithCGPoint:CGPointMake(positionX, originContentCenter.y)]];
     }
     
     return values;
 }
 
-- (NSArray *)menuKeyTimesForMenuState:(LMDropdownViewState)state
+- (NSArray *)contentKeyTimesForState:(LMDropdownViewState)state
 {
     NSMutableArray *keyTimes = [[NSMutableArray alloc] init];
     [keyTimes addObject:[NSNumber numberWithFloat:0]];
@@ -238,7 +298,7 @@
     return keyTimes;
 }
 
-- (NSArray *)menuTimingFunctionsForMenuState:(LMDropdownViewState)state
+- (NSArray *)contentTimingFunctionsForState:(LMDropdownViewState)state
 {
     NSMutableArray *timingFunctions = [[NSMutableArray alloc] init];
     [timingFunctions addObject:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
@@ -246,28 +306,30 @@
     return timingFunctions;
 }
 
-- (NSArray *)contentTransformValuesForMenuState:(LMDropdownViewState)state
+- (NSArray *)containerTransformValuesForState:(LMDropdownViewState)state
 {
-    CATransform3D contentTransform = self.contentView.layer.transform;
+    CATransform3D transform = self.containerWrapperView.layer.transform;
     
     NSMutableArray *values = [[NSMutableArray alloc] init];
-    [values addObject:[NSValue valueWithCATransform3D:contentTransform]];
+    [values addObject:[NSValue valueWithCATransform3D:transform]];
     
     if (state == LMDropdownViewStateWillOpen || state == LMDropdownViewStateDidOpen)
     {
-        [values addObject:[NSValue valueWithCATransform3D:CATransform3DScale(contentTransform, self.closedScale-0.05, self.closedScale-0.05, self.closedScale-0.05)]];
-        [values addObject:[NSValue valueWithCATransform3D:CATransform3DScale(contentTransform, self.closedScale, self.closedScale, self.closedScale)]];
+        CGFloat scale = self.closedScale - kDefaultAnimationBounceScale;
+        [values addObject:[NSValue valueWithCATransform3D:CATransform3DScale(transform, scale, scale, scale)]];
+        [values addObject:[NSValue valueWithCATransform3D:CATransform3DScale(transform, self.closedScale, self.closedScale, self.closedScale)]];
     }
     else
     {
-        [values addObject:[NSValue valueWithCATransform3D:CATransform3DScale(contentTransform, 0.95, 0.95, 0.95)]];
+        CGFloat scale = 1 - kDefaultAnimationBounceScale;
+        [values addObject:[NSValue valueWithCATransform3D:CATransform3DScale(transform, scale, scale, scale)]];
         [values addObject:[NSValue valueWithCATransform3D:CATransform3DIdentity]];
     }
     
     return values;
 }
 
-- (NSArray *)contentKeyTimesForMenuState:(LMDropdownViewState)state
+- (NSArray *)containerKeyTimesForState:(LMDropdownViewState)state
 {
     NSMutableArray *keyTimes = [[NSMutableArray alloc] init];
     [keyTimes addObject:[NSNumber numberWithFloat:0]];
@@ -276,7 +338,7 @@
     return keyTimes;
 }
 
-- (NSArray *)contentTimingFunctionsForMenuState:(LMDropdownViewState)state
+- (NSArray *)containerTimingFunctionsForState:(LMDropdownViewState)state
 {
     NSMutableArray *timingFunctions = [[NSMutableArray alloc] init];
     [timingFunctions addObject:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];

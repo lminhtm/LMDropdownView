@@ -1,14 +1,13 @@
 //
-//  UIImage+LMImage.m
-//  LMFramework
+//  UIImage+LMExtension.m
 //
 //  Created by LMinh on 28/12/2013.
 //  Copyright (c) 2013 LMinh. All rights reserved.
 //
 
-#import "UIImage+LMImage.h"
+#import "UIImage+LMExtension.h"
 
-@implementation UIImage (LMImage)
+@implementation UIImage (LMExtension)
 
 #pragma mark - CREATE IMAGE
 

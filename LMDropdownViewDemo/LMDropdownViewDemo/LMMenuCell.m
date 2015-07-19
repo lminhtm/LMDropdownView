@@ -1,14 +1,14 @@
 //
-//  LMItemViewCell.m
-//  LMDropdownView
+//  LMMenuCell.m
+//  LMDropdownViewDemo
 //
 //  Created by LMinh on 16/07/2014.
-//  Copyright (c) Năm 2014 LMinh. All rights reserved.
+//  Copyright (c) 2014 LMinh. All rights reserved.
 //
 
-#import "LMDefaultMenuItemCell.h"
+#import "LMMenuCell.h"
 
-@implementation LMDefaultMenuItemCell
+@implementation LMMenuCell
 
 - (void)awakeFromNib
 {
