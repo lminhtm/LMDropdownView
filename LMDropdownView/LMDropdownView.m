@@ -18,6 +18,7 @@
 
 @interface LMDropdownView ()
 {
+    UIInterfaceOrientation lastOrientation;
     CGPoint originContentCenter;
     CGPoint desContentCenter;
 }
@@ -49,12 +50,18 @@
         _direction = LMDropdownViewDirectionTop;
         _currentState = LMDropdownViewStateDidClose;
         
+        lastOrientation = [UIApplication sharedApplication].statusBarOrientation;
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(orientationChanged:)
                                                      name:UIDeviceOrientationDidChangeNotification
                                                    object:nil];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -156,9 +163,11 @@
 {
     _currentState = LMDropdownViewStateDidClose;
     
-    [self.contentWrapperView removeFromSuperview];
+    [self.contentWrapperView.layer setValue:[[self contentPositionValuesForState:_currentState] lastObject] forKeyPath:@"position"];
     [[self.contentWrapperView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self.contentWrapperView removeFromSuperview];
     [self.backgroundButton removeFromSuperview];
+    [self.containerWrapperView.layer setValue:[[self containerTransformValuesForState:_currentState] lastObject] forKeyPath:@"transform"];
     [self.containerWrapperView removeFromSuperview];
     [self.mainView removeFromSuperview];
 }
@@ -272,7 +281,15 @@
 
 - (void)orientationChanged:(NSNotification *)notification
 {
-    [self forceHide];
+    UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
+    BOOL canForceHide = UIInterfaceOrientationIsPortrait(currentOrientation) && UIInterfaceOrientationIsLandscape(lastOrientation);
+    canForceHide |= UIInterfaceOrientationIsPortrait(lastOrientation) && UIInterfaceOrientationIsLandscape(currentOrientation);
+    
+    if (canForceHide) {
+        [self forceHide];
+    }
+    
+    lastOrientation = currentOrientation;
 }
 
 - (void)backgroundButtonTapped:(id)sender
