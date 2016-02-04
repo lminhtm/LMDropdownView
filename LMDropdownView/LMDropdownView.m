@@ -231,8 +231,6 @@
         self.contentWrapperView = [[UIView alloc] init];
     }
     self.contentWrapperView.backgroundColor = self.contentBackgroundColor;
-    [self.contentWrapperView addSubview:contentView];
-    [self.mainView addSubview:self.contentWrapperView];
     
     CGFloat contentWrapperViewHeight = CGRectGetHeight(contentView.frame) + self.animationBounceHeight;
     switch (self.direction) {
@@ -259,6 +257,8 @@
         default:
             break;
     }
+    [self.contentWrapperView addSubview:contentView];
+    [self.mainView addSubview:self.contentWrapperView];
     
     /*!
      *  Set up origin, destination content center
