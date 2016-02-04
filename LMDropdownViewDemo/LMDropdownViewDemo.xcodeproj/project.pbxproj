@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28575FB51C6212EE007C306A /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28575FB41C6212EE007C306A /* Launch Screen.storyboard */; settings = {ASSET_TAGS = (); }; };
 		5CB1F30F1B5B6AEF001886C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CB1F30E1B5B6AEF001886C3 /* Main.storyboard */; };
 		5CB1F3151B5B70C4001886C3 /* LMNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CB1F3141B5B70C4001886C3 /* LMNavigationController.m */; };
 		626CE7D81976240A0086888F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626CE7D71976240A0086888F /* Foundation.framework */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		28575FB41C6212EE007C306A /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		5CB1F30E1B5B6AEF001886C3 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		5CB1F3131B5B70C4001886C3 /* LMNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMNavigationController.h; sourceTree = "<group>"; };
 		5CB1F3141B5B70C4001886C3 /* LMNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMNavigationController.m; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				626CE7E61976240A0086888F /* LMAppDelegate.h */,
 				626CE7E71976240A0086888F /* LMAppDelegate.m */,
 				5CB1F30E1B5B6AEF001886C3 /* Main.storyboard */,
+				28575FB41C6212EE007C306A /* Launch Screen.storyboard */,
 				5CB1F30C1B5A0306001886C3 /* View Controllers */,
 				626CE7DE1976240A0086888F /* Supporting Files */,
 			);
@@ -185,7 +188,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = LM;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = LMinh;
 			};
 			buildConfigurationList = 626CE7CF1976240A0086888F /* Build configuration list for PBXProject "LMDropdownViewDemo" */;
@@ -212,6 +215,7 @@
 			files = (
 				5CB1F30F1B5B6AEF001886C3 /* Main.storyboard in Resources */,
 				626CE7E21976240A0086888F /* InfoPlist.strings in Resources */,
+				28575FB51C6212EE007C306A /* Launch Screen.storyboard in Resources */,
 				626CE7EA1976240A0086888F /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,6 +269,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -326,6 +331,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LMDropdownViewDemo/LMDropdownViewDemo-Prefix.pch";
 				INFOPLIST_FILE = "LMDropdownViewDemo/LMDropdownViewDemo-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lminhtm.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = LMDropdown;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -341,6 +347,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LMDropdownViewDemo/LMDropdownViewDemo-Prefix.pch";
 				INFOPLIST_FILE = "LMDropdownViewDemo/LMDropdownViewDemo-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lminhtm.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = LMDropdown;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;

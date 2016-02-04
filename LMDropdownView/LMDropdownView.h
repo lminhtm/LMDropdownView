@@ -11,12 +11,17 @@
 /*!
  Dropdown view state.
  */
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, LMDropdownViewState) {
     LMDropdownViewStateWillOpen,
     LMDropdownViewStateDidOpen,
     LMDropdownViewStateWillClose,
     LMDropdownViewStateDidClose,
-} LMDropdownViewState;
+};
+
+typedef NS_ENUM(NSUInteger, LMDropdownViewDirection) {
+    LMDropdownViewDirectionTop,
+    LMDropdownViewDirectionBottom,
+};
 
 @protocol LMDropdownViewDelegate;
 
@@ -50,6 +55,11 @@ typedef enum : NSUInteger {
  *  The animation bounce height of content view.
  */
 @property (nonatomic, assign) CGFloat animationBounceHeight;
+
+/*!
+ *  The animation direction.
+ */
+@property (nonatomic, assign) LMDropdownViewDirection direction;
 
 /*!
  *  The background color of content view.
@@ -107,6 +117,11 @@ typedef enum : NSUInteger {
  *  Hide dropdown view.
  */
 - (void)hide;
+
+/*!
+ *  Force hide dropdown view.
+ */
+- (void)forceHide;
 
 @end
 
