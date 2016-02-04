@@ -331,7 +331,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LMDropdownViewDemo/LMDropdownViewDemo-Prefix.pch";
 				INFOPLIST_FILE = "LMDropdownViewDemo/LMDropdownViewDemo-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.lminhtm.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lminhtm.LMDropdownView;
 				PRODUCT_NAME = LMDropdown;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -347,7 +347,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LMDropdownViewDemo/LMDropdownViewDemo-Prefix.pch";
 				INFOPLIST_FILE = "LMDropdownViewDemo/LMDropdownViewDemo-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.lminhtm.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lminhtm.LMDropdownView;
 				PRODUCT_NAME = LMDropdown;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;

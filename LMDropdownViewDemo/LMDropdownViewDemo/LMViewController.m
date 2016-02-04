@@ -54,7 +54,7 @@
     self.menuTableView.frame = CGRectMake(CGRectGetMinX(self.menuTableView.frame),
                                           CGRectGetMinY(self.menuTableView.frame),
                                           CGRectGetWidth(self.view.bounds),
-                                          MIN(CGRectGetHeight(self.view.bounds)/2, self.mapTypes.count * 50));
+                                          MIN(CGRectGetHeight(self.view.bounds) - 50, self.mapTypes.count * 50));
     self.moreBottomView.frame = CGRectMake(CGRectGetMinX(self.moreBottomView.frame),
                                            CGRectGetMinY(self.moreBottomView.frame),
                                            CGRectGetWidth(self.view.bounds),
