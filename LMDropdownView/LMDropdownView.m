@@ -295,7 +295,15 @@
     canForceHide |= UIInterfaceOrientationIsPortrait(lastOrientation) && UIInterfaceOrientationIsLandscape(currentOrientation);
     
     if (canForceHide) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(dropdownViewWillHide:)]) {
+            [self.delegate dropdownViewWillHide:self];
+        }
+        
         [self forceHide];
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(dropdownViewDidHide:)]) {
+            [self.delegate dropdownViewDidHide:self];
+        }
     }
     
     lastOrientation = currentOrientation;
