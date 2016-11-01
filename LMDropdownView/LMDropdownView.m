@@ -304,6 +304,9 @@
         if (self.delegate && [self.delegate respondsToSelector:@selector(dropdownViewDidHide:)]) {
             [self.delegate dropdownViewDidHide:self];
         }
+        if (self.didHideHandler) {
+            self.didHideHandler();
+        }
     }
     
     lastOrientation = currentOrientation;
