@@ -36,6 +36,11 @@ typedef NS_ENUM(NSUInteger, LMDropdownViewDirection) {
  */
 @property (nonatomic, assign) CGFloat closedScale;
 
+/**
+ A boolean indicates whether container view should be blurred. Default is YES
+ */
+@property (nonatomic, assign) BOOL shouldBlurContainerView;
+
 /*!
  *  The blur radius of container view.
  */

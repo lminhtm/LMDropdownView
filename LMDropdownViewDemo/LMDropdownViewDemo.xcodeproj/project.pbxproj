@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		28575FB51C6212EE007C306A /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28575FB41C6212EE007C306A /* Launch Screen.storyboard */; settings = {ASSET_TAGS = (); }; };
+		28575FB51C6212EE007C306A /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28575FB41C6212EE007C306A /* Launch Screen.storyboard */; };
 		5CB1F30F1B5B6AEF001886C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CB1F30E1B5B6AEF001886C3 /* Main.storyboard */; };
 		5CB1F3151B5B70C4001886C3 /* LMNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CB1F3141B5B70C4001886C3 /* LMNavigationController.m */; };
 		626CE7D81976240A0086888F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626CE7D71976240A0086888F /* Foundation.framework */; };
@@ -188,8 +188,14 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = LM;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = LMinh;
+				TargetAttributes = {
+					626CE7D31976240A0086888F = {
+						DevelopmentTeam = 6HXC4UA9AV;
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = 626CE7CF1976240A0086888F /* Build configuration list for PBXProject "LMDropdownViewDemo" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -264,14 +270,19 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -303,13 +314,18 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -328,10 +344,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 6HXC4UA9AV;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LMDropdownViewDemo/LMDropdownViewDemo-Prefix.pch";
 				INFOPLIST_FILE = "LMDropdownViewDemo/LMDropdownViewDemo-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = com.lminhtm.LMDropdownView;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lminhtm.lmdropdownviewdemo;
 				PRODUCT_NAME = LMDropdown;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -344,10 +361,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 6HXC4UA9AV;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LMDropdownViewDemo/LMDropdownViewDemo-Prefix.pch";
 				INFOPLIST_FILE = "LMDropdownViewDemo/LMDropdownViewDemo-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = com.lminhtm.LMDropdownView;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lminhtm.lmdropdownviewdemo;
 				PRODUCT_NAME = LMDropdown;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;

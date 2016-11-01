@@ -9,6 +9,13 @@
 #import "LMDropdownView.h"
 #import "UIImage+LMExtension.h"
 
+#define frx(a)                      (a.frame.origin.x)
+#define fry(a)                      (a.frame.origin.y)
+#define midx(a)                     (CGRectGetMidX(a.frame))
+#define midy(a)                     (CGRectGetMidY(a.frame))
+#define W(a)                        (a.frame.size.width)
+#define H(a)                        (a.frame.size.height)
+
 #define kDefaultClosedScale                 0.85
 #define kDefaultBlurRadius                  5
 #define kDefaultBlackMaskAlpha              0.5
@@ -41,8 +48,10 @@
 - (id)init
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         _closedScale = kDefaultClosedScale;
+        _shouldBlurContainerView = YES;
         _blurRadius = kDefaultBlurRadius;
         _blackMaskAlpha = kDefaultBlackMaskAlpha;
         _animationDuration = kDefaultAnimationDuration;
@@ -62,6 +71,19 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+#pragma mark - PROPERTIES
+
+- (void)setClosedScale:(CGFloat)closedScale
+{
+    _closedScale = MIN(MAX(closedScale, 0.1), 1);
+}
+
+- (void)setBlackMaskAlpha:(CGFloat)blackMaskAlpha
+{
+    _blackMaskAlpha = MIN(MAX(blackMaskAlpha, 0), 0.9);
 }
 
 
@@ -184,7 +206,10 @@
     CGFloat scale = (3 - 2 * self.closedScale);
     CGSize capturedSize = CGSizeMake(containerSize.width * scale, containerSize.height * scale);
     UIImage *capturedImage = [UIImage imageFromView:containerView withSize:capturedSize];
-    UIImage *blurredCapturedImage = [capturedImage blurredImageWithRadius:self.blurRadius iterations:5 tintColor:[UIColor clearColor]];
+    UIImage *containerImage = capturedImage;
+    if (self.shouldBlurContainerView) {
+        containerImage = [capturedImage blurredImageWithRadius:self.blurRadius iterations:5 tintColor:[UIColor clearColor]];
+    }
     
     /*!
      *  Main View
@@ -204,11 +229,8 @@
         self.containerWrapperView.backgroundColor = [UIColor blackColor];
         self.containerWrapperView.contentMode = UIViewContentModeCenter;
     }
-    self.containerWrapperView.image = blurredCapturedImage;
-    self.containerWrapperView.bounds = CGRectMake(0,
-                                                  0,
-                                                  capturedSize.width,
-                                                  capturedSize.height);
+    self.containerWrapperView.image = containerImage;
+    self.containerWrapperView.bounds = CGRectMake(0, 0, capturedSize.width, capturedSize.height);
     self.containerWrapperView.center = self.mainView.center;
     [self.mainView addSubview:self.containerWrapperView];
     
@@ -235,23 +257,17 @@
     CGFloat contentWrapperViewHeight = CGRectGetHeight(contentView.frame) + self.animationBounceHeight;
     switch (self.direction) {
         case LMDropdownViewDirectionTop:
-            contentView.frame = CGRectMake(0,
-                                           self.animationBounceHeight,
-                                           CGRectGetWidth(contentView.frame),
-                                           CGRectGetHeight(contentView.frame));
+            contentView.frame = CGRectMake(0, self.animationBounceHeight, W(contentView), H(contentView));
             self.contentWrapperView.frame = CGRectMake(origin.x,
                                                        origin.y - contentWrapperViewHeight,
-                                                       CGRectGetWidth(contentView.frame),
+                                                       W(contentView),
                                                        contentWrapperViewHeight);
             break;
         case LMDropdownViewDirectionBottom:
-            contentView.frame = CGRectMake(0,
-                                           0,
-                                           CGRectGetWidth(contentView.frame),
-                                           CGRectGetHeight(contentView.frame));
+            contentView.frame = CGRectMake(0, 0, W(contentView), H(contentView));
             self.contentWrapperView.frame = CGRectMake(origin.x,
                                                        origin.y + contentWrapperViewHeight,
-                                                       CGRectGetWidth(contentView.frame),
+                                                       W(contentView),
                                                        contentWrapperViewHeight);
             break;
         default:
@@ -263,19 +279,12 @@
     /*!
      *  Set up origin, destination content center
      */
-    originContentCenter = CGPointMake(CGRectGetMidX(self.contentWrapperView.frame),
-                                      CGRectGetMidY(self.contentWrapperView.frame));
-    switch (self.direction) {
-        case LMDropdownViewDirectionTop:
-            desContentCenter = CGPointMake(CGRectGetMidX(self.contentWrapperView.frame),
-                                           origin.y + contentWrapperViewHeight/2 - self.animationBounceHeight);
-            break;
-        case LMDropdownViewDirectionBottom:
-            desContentCenter = CGPointMake(CGRectGetMidX(self.contentWrapperView.frame),
-                                           origin.y + contentWrapperViewHeight/2);
-            break;
-        default:
-            break;
+    originContentCenter = CGPointMake(midx(self.contentWrapperView), midy(self.contentWrapperView));
+    if (self.direction == LMDropdownViewDirectionTop) {
+        desContentCenter = CGPointMake(midx(self.contentWrapperView), origin.y + contentWrapperViewHeight/2 - self.animationBounceHeight);
+    }
+    else {
+        desContentCenter = CGPointMake(midx(self.contentWrapperView), origin.y + contentWrapperViewHeight/2);
     }
 }
 
@@ -297,11 +306,6 @@
     [self hide];
 }
 
-- (void)setClosedScale:(CGFloat)closedScale
-{
-    _closedScale = MIN(closedScale, 1);
-}
-
 
 #pragma mark - KEYFRAME ANIMATION
 
@@ -309,7 +313,6 @@
 {
     CAKeyframeAnimation *contentBounceAnim = [CAKeyframeAnimation animationWithKeyPath:@"position"];
     contentBounceAnim.duration = self.animationDuration;
-    contentBounceAnim.delegate = self;
     contentBounceAnim.removedOnCompletion = NO;
     contentBounceAnim.fillMode = kCAFillModeForwards;
     contentBounceAnim.values = [self contentPositionValuesForState:state];
@@ -324,7 +327,6 @@
 {
     CAKeyframeAnimation *containerScaleAnim = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
     containerScaleAnim.duration = self.animationDuration;
-    containerScaleAnim.delegate = self;
     containerScaleAnim.removedOnCompletion = NO;
     containerScaleAnim.fillMode = kCAFillModeForwards;
     containerScaleAnim.values = [self containerTransformValuesForState:state];
@@ -340,39 +342,30 @@
 
 - (NSArray *)contentPositionValuesForState:(LMDropdownViewState)state
 {
-    CGFloat positionX = self.contentWrapperView.layer.position.x;
-    CGFloat positionY = self.contentWrapperView.layer.position.y;
+    CGPoint currentContentCenter = self.contentWrapperView.layer.position;
     
-    NSMutableArray *values = [[NSMutableArray alloc] init];
-    [values addObject:[NSValue valueWithCGPoint:self.contentWrapperView.layer.position]];
+    NSMutableArray *values = [NSMutableArray new];
+    [values addObject:[NSValue valueWithCGPoint:currentContentCenter]];
     
     if (state == LMDropdownViewStateWillOpen || state == LMDropdownViewStateDidOpen)
     {
-        switch (self.direction) {
-            case LMDropdownViewDirectionTop:
-                [values addObject:[NSValue valueWithCGPoint:CGPointMake(positionX, desContentCenter.y + self.animationBounceHeight)]];
-                break;
-            case LMDropdownViewDirectionBottom:
-                [values addObject:[NSValue valueWithCGPoint:CGPointMake(positionX, desContentCenter.y - self.animationBounceHeight)]];
-                break;
-            default:
-                break;
+        if (self.direction == LMDropdownViewDirectionTop) {
+            [values addObject:[NSValue valueWithCGPoint:CGPointMake(currentContentCenter.x, desContentCenter.y + self.animationBounceHeight)]];
         }
-        [values addObject:[NSValue valueWithCGPoint:CGPointMake(positionX, desContentCenter.y)]];
+        else {
+            [values addObject:[NSValue valueWithCGPoint:CGPointMake(currentContentCenter.x, desContentCenter.y - self.animationBounceHeight)]];
+        }
+        [values addObject:[NSValue valueWithCGPoint:CGPointMake(currentContentCenter.x, desContentCenter.y)]];
     }
     else
     {
-        switch (self.direction) {
-            case LMDropdownViewDirectionTop:
-                [values addObject:[NSValue valueWithCGPoint:CGPointMake(positionX, positionY + self.animationBounceHeight)]];
-                break;
-            case LMDropdownViewDirectionBottom:
-                [values addObject:[NSValue valueWithCGPoint:CGPointMake(positionX, positionY - self.animationBounceHeight)]];
-                break;
-            default:
-                break;
+        if (self.direction == LMDropdownViewDirectionTop) {
+            [values addObject:[NSValue valueWithCGPoint:CGPointMake(currentContentCenter.x, currentContentCenter.y + self.animationBounceHeight)]];
         }
-        [values addObject:[NSValue valueWithCGPoint:CGPointMake(positionX, originContentCenter.y)]];
+        else {
+            [values addObject:[NSValue valueWithCGPoint:CGPointMake(currentContentCenter.x, currentContentCenter.y - self.animationBounceHeight)]];
+        }
+        [values addObject:[NSValue valueWithCGPoint:CGPointMake(currentContentCenter.x, originContentCenter.y)]];
     }
     
     return values;
@@ -380,7 +373,7 @@
 
 - (NSArray *)contentKeyTimesForState:(LMDropdownViewState)state
 {
-    NSMutableArray *keyTimes = [[NSMutableArray alloc] init];
+    NSMutableArray *keyTimes = [NSMutableArray new];
     [keyTimes addObject:[NSNumber numberWithFloat:0]];
     [keyTimes addObject:[NSNumber numberWithFloat:0.5]];
     [keyTimes addObject:[NSNumber numberWithFloat:1]];
@@ -389,7 +382,7 @@
 
 - (NSArray *)contentTimingFunctionsForState:(LMDropdownViewState)state
 {
-    NSMutableArray *timingFunctions = [[NSMutableArray alloc] init];
+    NSMutableArray *timingFunctions = [NSMutableArray new];
     [timingFunctions addObject:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
     [timingFunctions addObject:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
     return timingFunctions;
@@ -399,7 +392,7 @@
 {
     CATransform3D transform = self.containerWrapperView.layer.transform;
     
-    NSMutableArray *values = [[NSMutableArray alloc] init];
+    NSMutableArray *values = [NSMutableArray new];
     [values addObject:[NSValue valueWithCATransform3D:transform]];
     
     if (state == LMDropdownViewStateWillOpen || state == LMDropdownViewStateDidOpen)
@@ -420,7 +413,7 @@
 
 - (NSArray *)containerKeyTimesForState:(LMDropdownViewState)state
 {
-    NSMutableArray *keyTimes = [[NSMutableArray alloc] init];
+    NSMutableArray *keyTimes = [NSMutableArray new];
     [keyTimes addObject:[NSNumber numberWithFloat:0]];
     [keyTimes addObject:[NSNumber numberWithFloat:0.5]];
     [keyTimes addObject:[NSNumber numberWithFloat:1]];
@@ -429,7 +422,7 @@
 
 - (NSArray *)containerTimingFunctionsForState:(LMDropdownViewState)state
 {
-    NSMutableArray *timingFunctions = [[NSMutableArray alloc] init];
+    NSMutableArray *timingFunctions = [NSMutableArray new];
     [timingFunctions addObject:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
     [timingFunctions addObject:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
     return timingFunctions;
