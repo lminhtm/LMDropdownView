@@ -24,6 +24,9 @@ pod 'LMDropdownView'
 * Drag the `LMDropdownView` folder into your project.
 * Add `#include "LMDropdownView.h"` to the top of classes that will use it.
 
+## Swift Version
+https://github.com/lminhtm/LMDropdownViewSwift
+
 ## Usage
 You can easily integrate the LMDropdownView with a few lines of code. For an example usage look at the code below.
 ```ObjC
