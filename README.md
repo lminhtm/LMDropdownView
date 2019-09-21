@@ -1,5 +1,4 @@
 # LMDropdownView
-==============
 LMDropdownView is a simple dropdown view inspired by Tappy.
 
 [![CI Status](https://img.shields.io/travis/LMinh/LMDropdownView.svg?style=flat)](https://travis-ci.org/LMinh/LMDropdownView)
@@ -7,9 +6,7 @@ LMDropdownView is a simple dropdown view inspired by Tappy.
 [![License](https://img.shields.io/cocoapods/l/LMDropdownView.svg?style=flat)](https://cocoapods.org/pods/LMDropdownView)
 [![Platform](https://img.shields.io/cocoapods/p/LMDropdownView.svg?style=flat)](https://cocoapods.org/pods/LMDropdownView)
 
-<img src="https://raw.github.com/lminhtm/LMDropdownView/master/Screenshots/screenshot1.png"/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="https://raw.github.com/lminhtm/LMDropdownView/master/Screenshots/screenshot2.gif"/>
+<img src="https://raw.github.com/lminhtm/LMDropdownView/master/Screenshots/screenshot1.png"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://raw.github.com/lminhtm/LMDropdownView/master/Screenshots/screenshot2.gif"/>
 
 ## Features
 * Dropdown view with blur+transform3D effect.
@@ -17,8 +14,7 @@ LMDropdownView is a simple dropdown view inspired by Tappy.
 * You can easily change the menu content view.
 
 ## Requirements
-* iOS 8.0 or higher 
-* ARC
+* iOS 8.0 or higher
 
 ## Installation
 LMDropdownView is available through [CocoaPods](https://cocoapods.org). To install
@@ -46,7 +42,7 @@ See sample Xcode project in `/LMDropdownViewDemo`
 LMDropdownView is licensed under the terms of the MIT License.
 
 ## Contact
-Minh Luong Nguyen
+Minh Nguyen
 https://github.com/lminhtm
 
 ## Donations
