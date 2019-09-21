@@ -1,0 +1,16 @@
+PODS:
+  - LMDropdownView (1.0.4)
+
+DEPENDENCIES:
+  - LMDropdownView (from `../`)
+
+EXTERNAL SOURCES:
+  LMDropdownView:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  LMDropdownView: afec7753d96d62977126b3df8592d41cc2acfc3c
+
+PODFILE CHECKSUM: 549acddf53ae13547b2e0938e952a550b8ef39d7
+
+COCOAPODS: 1.7.4

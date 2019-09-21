@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name             = "LMDropdownView"
-  s.version          = "1.0.3"
+  s.version          = "1.0.4"
   s.summary          = "LMDropdownView is a simple dropdown view inspired by Tappy"
   s.homepage         = "https://github.com/lminhtm/LMDropdownView"
   s.license          = 'MIT'
@@ -11,6 +11,6 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '7.0'
   s.requires_arc = true
 
-  s.source_files = 'LMDropdownView/**/*.{h,m}'
+  s.source_files = 'LMDropdownView/Classes/**/*'
 
 end
