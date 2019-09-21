@@ -31,6 +31,9 @@ pod 'LMDropdownView'
 ## Example
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
+## Swift Version
+https://github.com/lminhtm/LMDropdownViewSwift
+
 ## Usage
 You can easily integrate the LMDropdownView with a few lines of code. For an example usage look at the code below.
 ```ObjC
@@ -45,9 +48,6 @@ LMDropdownView is licensed under the terms of the MIT License.
 ## Contact
 Minh Luong Nguyen
 https://github.com/lminhtm
-
-## Projects using LMDropdownView
-Feel free to add your project [here](https://github.com/lminhtm/LMDropdownView/wiki/Projects-using-LMDropdownView)
 
 ## Donations
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=J3WZJT2AD28NW&lc=VN&item_name=LMDropdownView&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)
